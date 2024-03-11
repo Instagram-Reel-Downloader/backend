@@ -5,10 +5,7 @@ export default async (request: Request, context: Context) => {
     try {
         const { url } = context.params;
         if (!url) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "Missing required parameter: url" }),
-            };
+            return new Response("Missing required parameter: url");
         }
         const videoLink = await getVideoLink(url);
         return new Response(videoLink);
