@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer';
 export default async (request: Request) => {
     try {
         const url = new URL(request.url).searchParams.get('url');
+        console.log('url', url);
         if (!url) {
             return new Response("Missing required parameter: url");
         }
@@ -13,7 +14,7 @@ export default async (request: Request) => {
     }
 };
 
-const getVideoLink = async (url) => {
+const getVideoLink = async (url: string) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
