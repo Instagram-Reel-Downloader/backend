@@ -1,9 +1,8 @@
-import { Context } from "@netlify/functions";
 import puppeteer from 'puppeteer';
 
-export default async (request: Request, context: Context) => {
+export default async (request: Request) => {
     try {
-        const { url } = context.params;
+        const url = new URL(request.url).searchParams.get('url');
         if (!url) {
             return new Response("Missing required parameter: url");
         }
