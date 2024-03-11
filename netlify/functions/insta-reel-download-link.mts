@@ -11,15 +11,9 @@ export default async (request: Request, context: Context) => {
             };
         }
         const videoLink = await getVideoLink(url);
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ downloadLink: videoLink }),
-        };
+        return new Response(videoLink);
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "Internal server error" }),
-        };
+        return new Response("Internal server error");
     }
 };
 
