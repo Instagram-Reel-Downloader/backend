@@ -10,6 +10,7 @@ export default async (request: Request) => {
         const videoLink = await getVideoLink(url);
         return new Response(videoLink);
     } catch (error) {
+        console.log('error intenral', error);
         return new Response("Internal server error");
     }
 };
@@ -33,6 +34,7 @@ const getVideoLink = async (url: string) => {
 
         return videoSrc;
     } catch (error) {
+        console.log('error', error);
         throw new Error("Error extracting video link");
     } finally {
         // Close the browser after extraction
