@@ -1,5 +1,6 @@
-import puppeteer from 'puppeteer-core';
-import chromium from "chrome-aws-lambda";
+import puppeteer from 'puppeteer';
+import dotenv from "dotenv";
+dotenv.config();
 
 export default async (request: Request) => {
     try {
@@ -19,11 +20,7 @@ export default async (request: Request) => {
 const getVideoLink = async (url: string) => {
 
     const browser = await puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-        ignoreHTTPSErrors: true,
+        executablePath: process.env.CHROME_EXECUTABLE_PATH
     });
     const page = await browser.newPage();
 
