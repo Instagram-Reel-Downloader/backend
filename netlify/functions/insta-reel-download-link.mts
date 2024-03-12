@@ -1,6 +1,11 @@
-import puppeteer from 'puppeteer';
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
+
 import dotenv from "dotenv";
 dotenv.config();
+
+chromium.setHeadlessMode = true;
+chromium.setGraphicsMode = false;
 
 export default async (request: Request) => {
     try {
@@ -20,7 +25,9 @@ export default async (request: Request) => {
 const getVideoLink = async (url: string) => {
 
     const browser = await puppeteer.launch({
-        executablePath: process.env.CHROME_EXECUTABLE_PATH
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: process.env.CHROME_EXECUTABLE_PATH || (await chromium.executablePath('/var/task/node_modules/@sparticuz/chromium/bin'))
     });
     const page = await browser.newPage();
 
