@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from "@sparticuz/chromium";
 
 export default async (request: Request) => {
     try {
@@ -16,7 +17,13 @@ export default async (request: Request) => {
 };
 
 const getVideoLink = async (url: string) => {
-    const browser = await puppeteer.launch();
+
+    const browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+    });
     const page = await browser.newPage();
 
     try {
